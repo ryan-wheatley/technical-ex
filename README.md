@@ -2,8 +2,8 @@
 
 ## Clone the Repository
 ```sh
-git clone https://github.com/your-repo-name.git
-cd your-repo-name
+git clone git@github.com:ryan-wheatley/technical-ex.git
+cd technical-ex
 ```
 
 ## Install Dependencies
