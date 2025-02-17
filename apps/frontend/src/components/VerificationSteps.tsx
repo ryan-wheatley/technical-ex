@@ -44,15 +44,17 @@ export default function VerificationSteps() {
 
   return (
     <Box className={"w-full"}>
-      <Stepper activeStep={activeStep}>
-        {verificationSteps.map((label) => {
-          return (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          )
-        })}
-      </Stepper>
+      <div className={"hidden sm:block"}>
+        <Stepper activeStep={activeStep}>
+          {verificationSteps.map((label) => {
+            return (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            )
+          })}
+        </Stepper>
+      </div>
 
       <div className="py-20 flex justify-center">
         {activeStep === 0 && <DetailsForm />}
