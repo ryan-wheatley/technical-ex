@@ -1,51 +1,51 @@
 import {
-  BadRequestException,
   Body,
   Controller,
   Get,
   Post,
   Query,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { ClientService } from './client.service';
+import {
+  CreateClientDto,
+  CreateDocumentCheckDto,
+  GetIdentityCheckDto,
+} from './client.dto';
 
 @Controller('client')
 export class ClientController {
   constructor(private readonly clientService: ClientService) {}
 
   @Post('create')
-  async create(
-    @Body('firstName') firstName: string,
-    @Body('lastName') lastName: string,
-    @Body('email') email: string,
-    @Body('dob') dob: string,
-  ) {
-    return this.clientService.createClient(firstName, lastName, email, dob);
+  @UsePipes(new ValidationPipe({ whitelist: true, transform: true }))
+  async create(@Body() body: CreateClientDto) {
+    return this.clientService.createClient(
+      body.firstName,
+      body.lastName,
+      body.email,
+      body.dob,
+    );
   }
 
   @Post('check')
-  async createDocumentCheck(
-    @Body('clientId') clientId: string,
-    @Body('documentId') documentId: string,
-  ) {
-    return await this.clientService.createDocumentCheck(clientId, documentId);
+  @UsePipes(new ValidationPipe({ whitelist: true, transform: true }))
+  async createDocumentCheck(@Body() body: CreateDocumentCheckDto) {
+    return await this.clientService.createDocumentCheck(
+      body.clientId,
+      body.documentId,
+    );
   }
 
   @Get('check')
-  async getIdentityCheck(
-    @Query('checkId') checkId: string,
-    @Query('firstName') firstName: string,
-    @Query('lastName') lastName: string,
-    @Query('dob') dob: string,
-  ) {
-    if (!checkId || !firstName || !lastName || !dob) {
-      throw new BadRequestException('Missing required query parameters');
-    }
-
+  @UsePipes(new ValidationPipe({ whitelist: true, transform: true }))
+  async getIdentityCheck(@Query() query: GetIdentityCheckDto) {
     return await this.clientService.verifyIdentity(
-      checkId,
-      firstName,
-      lastName,
-      dob,
+      query.checkId,
+      query.firstName,
+      query.lastName,
+      query.dob,
     );
   }
 }

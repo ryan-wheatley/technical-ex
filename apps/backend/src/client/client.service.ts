@@ -80,8 +80,6 @@ export class ClientService {
         throw new Error('No extracted document data found.');
       }
 
-      console.log('Extracted Data:', extractedData);
-
       const firstNameMatch = extractedData.firstName.some(
         (name: string) => name.toUpperCase() === firstName.toUpperCase(),
       );

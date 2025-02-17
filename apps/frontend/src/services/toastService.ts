@@ -1,10 +1,10 @@
-import { toast } from "react-hot-toast";
+import { toast } from "react-hot-toast"
 
 export const toastService = {
   success: (message: string) => {
     toast.success(message, {
-      position: "bottom-right",
+      position: "bottom-center",
       duration: 3000,
-    });
+    })
   },
-};
+}

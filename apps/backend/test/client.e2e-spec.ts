@@ -8,7 +8,6 @@ describe('ClientController (e2e)', () => {
   let app: INestApplication;
   let clientService: ClientService;
 
-  // Mock ClientService
   const mockClientService = {
     createClient: jest.fn().mockResolvedValue({
       client: { id: 'mock-client-id' },
@@ -29,7 +28,7 @@ describe('ClientController (e2e)', () => {
       imports: [AppModule],
     })
       .overrideProvider(ClientService)
-      .useValue(mockClientService) // Use the mock instead of the real service
+      .useValue(mockClientService)
       .compile();
 
     app = moduleFixture.createNestApplication();
@@ -77,7 +76,7 @@ describe('ClientController (e2e)', () => {
   it('/client/check (GET) should return identity verification result', async () => {
     const response = await request(app.getHttpServer())
       .get(
-        '/client/check?checkId=mock-check-id&firstName=John&lastName=Doe&dob=1990-01-01',
+        '/client/check?checkId=mock-check-id&firstName=John&lastName=Doe&dob=1995-10-10',
       )
       .expect(200);
 

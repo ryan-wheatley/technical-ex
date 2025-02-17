@@ -22,17 +22,10 @@ export const usePollCheck = (
       )
 
       const data = await result.json()
-      console.log(data)
 
-      if (data.status === "complete") {
+      if (data.status === "complete" || data.status === "failed") {
         clearInterval(interval)
-        setStatus("complete")
-        setResult(data.outcome)
-      }
-
-      if (data.status === "failed") {
-        clearInterval(interval)
-        setStatus("failed")
+        setStatus(data.status)
         setResult(data.outcome)
       }
     }, POLL_TIME)
